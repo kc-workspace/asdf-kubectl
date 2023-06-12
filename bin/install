@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+## Install a specific version of a tool to a specified location.
+## https://asdf-vm.com/plugins/create.html#bin-install
+
+set -euo pipefail
+
+export ASDF_PLUGIN_SCRIPT=${BASH_SOURCE[0]}
+export ASDF_PLUGIN_PATH=$(dirname "$(dirname "$ASDF_PLUGIN_SCRIPT")")
+
+# shellcheck source=../lib/commands.sh
+source "${ASDF_PLUGIN_PATH:?}/lib/commands.sh"
+
+## -----------------------------------------------------------------------
+
+## TODO: implement install app
+asdf_fail "not implement install yet"
