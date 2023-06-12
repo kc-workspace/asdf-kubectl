@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+## Output the list of dependencies tailored to the operating system.
+## One dependency per line.
+## https://asdf-vm.com/plugins/create.html#bin-help-deps
+
+set -euo pipefail
+
+## Environment variables
+## https://asdf-vm.com/plugins/create.html#environment-variables-overview
+
+## the path the plugin was installed
+plugin_path="${ASDF_PLUGIN_PATH:?}"
+
+## Utility scripts
+## https://asdf-vm.com/plugins/create.html#extension-commands-for-asdf-cli
+
+# shellcheck source=../lib/utils.sh
+source "${plugin_path}/lib/utils.sh"
+
+## -----------------------------------------------------------------------
+
+deps=(git curl sed)
+
+for dep in "${deps[@]}"; do
+  printf "%s\n" "$dep"
+done

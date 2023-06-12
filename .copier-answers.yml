@@ -1,0 +1,13 @@
+## Changes here will be overwritten by Copier; NEVER EDIT MANUALLY
+
+## Template version
+version: 1
+## Autogenerate
+_commit: v1.0.0-3-g09edb51
+_src_path: .
+app_git_repo: https://github.com/kubernetes/kubectl
+app_name: kubectl
+git_remote: https://github.com/kc-workspace/asdf-kubectl.git
+plugin_author: Kamontat Chantrachirathumrong
+plugin_name: asdf-kubectl
+plugin_org: kc-workspace

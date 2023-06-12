@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+## Output a general description about the plugin and the tool being managed.
+## https://asdf-vm.com/plugins/create.html#bin-help-overview
+
+set -euo pipefail
+
+## Environment variables
+## https://asdf-vm.com/plugins/create.html#environment-variables-overview
+
+## the path the plugin was installed
+plugin_path="${ASDF_PLUGIN_PATH:?}"
+
+## Utility scripts
+## https://asdf-vm.com/plugins/create.html#extension-commands-for-asdf-cli
+
+# shellcheck source=../lib/utils.sh
+source "${plugin_path}/lib/utils.sh"
+
+## -----------------------------------------------------------------------
+
+printf "asdf-plugin for %s\n" \
+  "{{ app_name }}"
