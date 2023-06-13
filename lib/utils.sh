@@ -99,36 +99,41 @@ asdf_version_sort() {
     LC_ALL=C sort -t. -k 1,1 -k 2,2n -k 3,3n -k 4,4n -k 5,5n | awk '{print $2}'
 }
 
-## Filtering version
-## e.g. `get_versions | asdf_version_filter_by "1.11"`
-asdf_version_filter_by() {
-  local query="$1"
-  grep -iE "^\\s*$query"
-}
-
 ## Filtering only stable version
-## e.g. `get_versions | asdf_version_stable_only`
-asdf_version_stable_only() {
+## e.g. `get_versions | asdf_version_only_stable`
+asdf_version_only_stable() {
   local query='(-src|-dev|-latest|-stm|[-\.]rc|-alpha|-beta|[-\.]pre|-next|snapshot|master)'
   grep -ivE "$query"
+}
+
+## Format version by remove prefix (default is `v`)
+## e.g. `get_versions | asdf_version_format 'v'`
+asdf_version_format() {
+  local prefix="${1:-v}"
+  sed "s/^$prefix//"
+}
+
+## Filter input regex from pipe list
+## e.g. `get_versions | asdf_version_regex '[0-9]+'`
+asdf_version_regex() {
+  local query="$1"
+  grep -iE "$query"
+}
+
+## Filter input version from pipe list
+## e.g. `get_versions | asdf_version_only '1.11'`
+asdf_version_only() {
+  local query="$1"
+  grep -iE "^\\s*$query"
 }
 
 ## List all tags from git repository
 ## e.g. `asdf_list_git_tags`
 asdf_list_git_tags() {
   local repo="$ASDF_PLUGIN_APP_REPO"
-
-  # NOTE: You might want to adapt `sed` command to remove non-version strings from tags
   git ls-remote --tags --refs "$repo" |
     grep -o 'refs/tags/.*' |
-    cut -d/ -f3- |
-    sed 's/^v//'
-}
-
-## List all version sorted from git repository
-## e.g. `asdf_list_versions`
-asdf_list_versions() {
-  asdf_list_git_tags | asdf_version_sort | xargs echo
+    cut -d/ -f3-
 }
 
 ## Print current OS
@@ -142,7 +147,7 @@ asdf_get_os() {
 asdf_get_arch() {
   local arch="${ASDF_OVERRIDE_ARCH:-}"
   if [ -n "$arch" ]; then
-    asdf_info "user override arch to '%s'" "$arch"
+    asdf_info "user overriding ARCH to '%s'" "$arch"
     printf "%s" "$arch"
     return 0
   fi
@@ -165,20 +170,25 @@ asdf_get_arch() {
 ## Install app to input location (support chmod)
 asdf_install() {
   local dldir="$1" itdir="$2"
-  local file="$ASDF_PLUGIN_APP_OUTPUT"
+  local file="$ASDF_PLUGIN_APP_NAME"
 
   local dlpath="$dldir/$file"
   asdf_debug "installing app at %s" "$itdir"
 
   if [ -d "$dlpath" ]; then
+    asdf_debug "moving dir from %s to %s" \
+      "$dlpath" "$itdir"
     mv "$dlpath" "$itdir" &&
-      asdf_debug "installed app at %s" "$itdir"
+      asdf_debug "installed dir at %s" "$itdir"
   elif [ -f "$dlpath" ]; then
     local itpath="$itdir/bin"
 
     mkdir -p "$itpath" 2>/dev/null
+
+    asdf_debug "moving file from %s to %s" \
+      "$dlpath" "$itpath"
     mv "$dlpath" "$itpath" &&
-      asdf_debug "installed app at %s" "$itpath"
+      asdf_debug "installed file at %s" "$itpath"
     chmod +x "$itpath/$file"
   else
     asdf_fail "unknown download path type (%s)" \
@@ -187,51 +197,58 @@ asdf_install() {
 
   local name="$ASDF_PLUGIN_APP_NAME"
   local executor="$itdir/bin/$name"
-  [ -f "$executor" ] || asdf_fail "'%s' is missing from '%s'" \
-    "$name" "$itdir/bin"
-  $executor >/dev/null || asdf_fail "'%s' execute failed"
+  [ -f "$executor" ] ||
+    asdf_fail "command '%s' is missing from '%s'" \
+      "$name" "$itdir/bin"
+  $executor >/dev/null ||
+    asdf_fail "'%s' execute failed"
 
-  asdf_info "installed '%s' successfully" \
-    "$name"
+  asdf_info "finished [%15s] '%s' successfully" \
+    "install" "$name"
 }
 
-## Download app to input location (support tar.gz extract)
+## Download app to input location (should be temp directory)
 ## e.g. `asdf_download v1.0.1 /tmp/test`
 asdf_download() {
-  local version="$1" outdir="$2" os arch
+  local version="$1" os arch
   os="$(asdf_get_os)"
   arch="$(asdf_get_arch)"
 
-  local download="https://dl.k8s.io/release/v${version}/bin/${os}/${arch}/kubectl"
-  asdf_info "starting download from %s" "$download"
+  local download
+  download="https://dl.k8s.io/release/v${version}/bin/${os}/${arch}/kubectl"
+  asdf_info "starting [%15s] %s" \
+    "download" "$download"
 
   local tmpfile="kubectl"
-  local tmpdir=""
-  tmpdir="$(mktemp -d)"
+  local tmpdir="$(mktemp -d)"
   local tmppath="$tmpdir/$tmpfile"
-  asdf_debug "create temp path at %s" "$tmppath"
 
-  local outfile="$ASDF_PLUGIN_APP_OUTPUT"
-  local outdir="$2"
-  local outpath="$outdir/$outfile"
-
+  asdf_debug "download output %s" \
+    "$tmppath"
   asdf_fetch_file "$download" "$tmppath"
-  asdf_debug "downloaded app at %s" "$tmppath"
 
-  if [[ "$tmpfile" =~ \.tar\.gz$ ]]; then
-    asdf_debug "extracting %s file to %s" \
-      "$tmppath" "$outdir"
-    asdf_extract_tar "$tmppath" "$outdir" &&
-      rm "$tmppath"
+  local outdir="$2"
+  local outpath="$outdir/$ASDF_PLUGIN_APP_NAME"
+
+  if command -v "asdf_post_download" >/dev/null; then
+    asdf_post_download "$tmppath" "$outpath" ||
+      asdf_fail "custom post download failed"
   else
-    asdf_debug "moving app from %s to %s" \
-      "$tmppath" "$outpath"
-    mv "$tmppath" "$outpath"
+    if [[ "$tmppath" =~ \.tar\.gz$ ]]; then
+      asdf_debug "extracting %s file to %s" \
+        "$tmppath" "$outdir"
+      asdf_extract_tar "$tmppath" "$outdir" &&
+        rm "$tmppath"
+    else
+      asdf_debug "moving app from %s to %s" \
+        "$tmppath" "$outpath"
+      mv "$tmppath" "$outpath"
+    fi
   fi
 
   local name="$ASDF_PLUGIN_APP_NAME"
-  asdf_info "downloaded '%s' successfully" \
-    "$name"
+  asdf_info "finished [%15s] '%s' successfully" \
+    "download" "$name"
 }
 
 ## Extract contents of tar.gz file
@@ -255,10 +272,7 @@ asdf_gh_latest() {
   )"
 
   asdf_debug "redirect url: %s" "$url"
-  if [[ "$url" == "$repo/releases" ]]; then
-    asdf_debug "use '%s' mode to resolve latest" "tail"
-    version="$(asdf_list_versions | tail -n1)"
-  elif [[ "$url" != "" ]]; then
+  if [ -n "$url" ] && [[ "$url" != "$repo/releases" ]]; then
     version="$(printf "%s\n" "$url" | sed 's|.*/tag/v\{0,1\}||')"
     asdf_debug "use '%s' mode to resolve latest" "github"
   fi
