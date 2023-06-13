@@ -13,4 +13,4 @@ source "${ASDF_PLUGIN_PATH:?}/lib/commands.sh"
 
 ## -----------------------------------------------------------------------
 
-asdf_sorted_version
+asdf_list_versions

@@ -14,5 +14,4 @@ source "${ASDF_PLUGIN_PATH:?}/lib/commands.sh"
 
 ## -----------------------------------------------------------------------
 
-## TODO: implement download app
-asdf_fail "not implement download yet"
+asdf_download "$ASDF_INSTALL_VERSION" "$ASDF_DOWNLOAD_PATH"

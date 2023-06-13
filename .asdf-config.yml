@@ -3,8 +3,10 @@
 ## Template version
 version: 1
 ## Autogenerate
-_commit: v1.0.0-5-g1bec182
+_commit: v1.0.0-6-g3aa751a
 _src_path: .
+app_download_link: https://dl.k8s.io/release/v${version}/bin/${os}/${arch}/kubectl
+app_download_output: kubectl
 app_git_repo: https://github.com/kubernetes/kubernetes
 app_name: kubectl
 git_remote: https://github.com/kc-workspace/asdf-kubectl.git

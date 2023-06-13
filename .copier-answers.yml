@@ -1,0 +1,11 @@
+## Changes here will be overwritten by Copier; NEVER EDIT MANUALLY
+_commit: v1.1.1
+_src_path: gh:kc-workspace/asdf-plugin-template.git
+app_download_link: https://dl.k8s.io/release/v${version}/bin/${os}/${arch}/kubectl
+app_download_output: kubectl
+app_git_repo: https://github.com/kubernetes/kubernetes
+app_name: kubectl
+git_remote: https://github.com/kc-workspace/asdf-kubectl.git
+plugin_author: Kamontat Chantrachirathumrong
+plugin_name: asdf-kubectl
+plugin_org: kc-workspace
