@@ -220,7 +220,8 @@ asdf_download() {
     "download" "$download"
 
   local tmpfile="kubectl"
-  local tmpdir="$(mktemp -d)"
+  local tmpdir
+  tmpdir="$(mktemp -d)"
   local tmppath="$tmpdir/$tmpfile"
 
   asdf_debug "download output %s" \
