@@ -264,7 +264,7 @@ asdf_extract_tar() {
 ## get version marked as latest on Github
 ## e.g.`asdf_gh_latest`
 asdf_gh_latest() {
-  local repo="${1:-$ASDF_PLUGIN_APP_REPO}"
+  local repo="$ASDF_PLUGIN_APP_REPO"
   local url="" version=""
   url="$(
     asdf_fetch_head "$repo/releases/latest" |

@@ -15,8 +15,10 @@ source "${ASDF_PLUGIN_PATH:?}/lib/commands.sh"
 
 ## -----------------------------------------------------------------------
 
-local deps=(git curl sed)
+deps=(git curl sed)
 
 for dep in "${deps[@]}"; do
   printf "%s\n" "$dep"
 done
+
+unset deps

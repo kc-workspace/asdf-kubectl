@@ -1,7 +1,7 @@
 ---
 ## Changes here will be overwritten by Copier; NEVER EDIT MANUALLY
-_commit: v1.2.3
-_src_path: gh:kc-workspace/asdf-plugin-template.git
+_commit: v1.2.3-1-g7fac734
+_src_path: .
 app_download_link: https://dl.k8s.io/release/v${version}/bin/${os}/${arch}/kubectl
 app_git_repo: https://github.com/kubernetes/kubernetes
 app_name: kubectl

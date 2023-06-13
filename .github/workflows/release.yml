@@ -27,7 +27,7 @@ jobs:
           changelog-types: |
             [
               {"type":"feat","section":"Features","hidden":false},
-              {"type":"perf","section":"Performance Improvements","hidden":false},
+              {"type":"perf","section":"Improvements","hidden":false},
               {"type":"fix","section":"Bugfixes","hidden":false},
               {"type":"chore","section":"Miscellaneous","hidden":false}
             ]
