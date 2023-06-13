@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0](https://github.com/kc-workspace/asdf-kubectl/compare/v1.1.0...v1.2.0) (2023-06-13)
+
+
+### Features
+
+* migrate to template v1.3.1 ([8878a31](https://github.com/kc-workspace/asdf-kubectl/commit/8878a31ddd1770efcb8e8753aaae2d1f279d3bf6))
+
 ## [1.1.0](https://github.com/kc-workspace/asdf-kubectl/compare/v1.0.0...v1.1.0) (2023-06-13)
 
 
