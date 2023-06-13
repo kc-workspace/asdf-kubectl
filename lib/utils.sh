@@ -5,7 +5,7 @@
 asdf_fail() {
   local format="$1"
   shift
-
+  # shellcheck disable=SC2059
   printf "[ERR] %s: $format\n" \
     "$ASDF_PLUGIN_NAME" "$@" >&2
   exit 1
@@ -16,7 +16,7 @@ asdf_fail() {
 asdf_info() {
   local format="$1"
   shift
-
+  # shellcheck disable=SC2059
   printf "[INF] $format\n" "$@" >&2
 }
 
@@ -29,6 +29,7 @@ asdf_debug() {
 
   local format="$1"
   shift
+  # shellcheck disable=SC2059
   printf "[DBG] $format\n" "$@" >&2
 }
 
@@ -37,7 +38,7 @@ asdf_debug() {
 asdf_fetch() {
   local options=()
   local url="$1"
-  local token
+  local token=""
 
   if [[ "$url" =~ ^https://github.com ]]; then
     token="${GITHUB_API_TOKEN:-}"
@@ -52,7 +53,7 @@ asdf_fetch() {
       --show-error
     )
 
-    [ -n "$CURL_OPTIONS" ] &&
+    [ -n "${CURL_OPTIONS:-}" ] &&
       options+=("${CURL_OPTIONS[@]}")
 
     if [ -n "$token" ]; then
@@ -113,9 +114,9 @@ asdf_version_stable_only() {
 }
 
 ## List all tags from git repository
-## e.g. `asdf_list_git_tags "https://github.com/hello-world/hello-world"`
+## e.g. `asdf_list_git_tags`
 asdf_list_git_tags() {
-  local repo="${1:-$ASDF_PLUGIN_APP_REPO}"
+  local repo="$ASDF_PLUGIN_APP_REPO"
 
   # NOTE: You might want to adapt `sed` command to remove non-version strings from tags
   git ls-remote --tags --refs "$repo" |
