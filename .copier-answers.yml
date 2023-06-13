@@ -1,5 +1,5 @@
 ## Changes here will be overwritten by Copier; NEVER EDIT MANUALLY
-_commit: v1.1.1
+_commit: v1.1.2
 _src_path: gh:kc-workspace/asdf-plugin-template.git
 app_download_link: https://dl.k8s.io/release/v${version}/bin/${os}/${arch}/kubectl
 app_download_output: kubectl
