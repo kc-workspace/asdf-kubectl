@@ -63,7 +63,7 @@ asdf_fetch() {
       )
     fi
 
-    asdf_debug "'curl' %s %s" \
+    asdf_debug "exec: curl %s %s" \
       "${options[*]}" "$url"
     if ! curl "${options[@]}" "$url"; then
       asdf_fail "fetching %s failed" "$url"
@@ -191,7 +191,7 @@ asdf_install() {
       asdf_debug "installed file at %s" "$itpath"
     chmod +x "$itpath/$file"
   else
-    asdf_fail "unknown download path type (%s)" \
+    asdf_fail "download path not found (%s)" \
       "$dlpath"
   fi
 
@@ -239,7 +239,9 @@ asdf_download() {
       asdf_debug "extracting %s file to %s" \
         "$tmppath" "$outdir"
       asdf_extract_tar "$tmppath" "$outdir" &&
-        rm "$tmppath"
+        rm "$tmppath" &&
+        asdf_debug "finished [%15s] '%s' successfully" \
+          "extract" "$tmpfile"
     else
       asdf_debug "moving app from %s to %s" \
         "$tmppath" "$outpath"
@@ -256,9 +258,16 @@ asdf_download() {
 ## e.g. `asdf_extract_tar /tmp/test.tar.gz /tmp/test`
 asdf_extract_tar() {
   local input="$1" output="$2"
-  tar -xzf "$input" \
-    -C "$output" \
-    --strip-components=1
+  local options=(
+    -xzf
+    "$input"
+    -C "$output"
+    --strip-components=0
+  )
+
+  asdf_debug "exec: tar %s" \
+    "${options[*]}"
+  tar "${options[@]}"
 }
 
 ## get version marked as latest on Github
