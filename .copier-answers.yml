@@ -1,6 +1,6 @@
 ---
 ## Changes here will be overwritten by Copier; NEVER EDIT MANUALLY
-_commit: v1.3.3-22-g3e9c78f
+_commit: v1.3.3-22-g436fecd
 _src_path: .
 app_description: a commandline interface for kubernetes cluster
 app_name: kubectl
