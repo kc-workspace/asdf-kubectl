@@ -1,11 +1,12 @@
 ---
 ## Changes here will be overwritten by Copier; NEVER EDIT MANUALLY
-_commit: v1.3.3-20-g3695eb1
+_commit: v1.3.3-22-g3e9c78f
 _src_path: .
 app_description: a commandline interface for kubernetes cluster
 app_name: kubectl
 app_repo: https://github.com/kubernetes/kubernetes
 app_version_prefix: v
+app_website: https://kubernetes.io
 custom_arch_enabled: true
 custom_arch_yaml:
     aarch64*: arm64
