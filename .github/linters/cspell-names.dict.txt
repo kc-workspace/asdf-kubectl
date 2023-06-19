@@ -2,3 +2,6 @@ kamontat
 chantrachirathumrong
 kc
 kcws
+kubernetes
+kubectl
+kube
