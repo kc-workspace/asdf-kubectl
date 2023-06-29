@@ -1,6 +1,6 @@
 ---
 ## Changes here will be overwritten by Copier; NEVER EDIT MANUALLY
-_commit: v1.3.3-44-g2f907ed
+_commit: v1.3.3-45-gd0b27be
 _src_path: /Users/kamontat/Desktop/Personal/asdf-plugin-template
 app_desc: automating deployment, scaling, and management of containerized applications.
 app_name: kubectl
