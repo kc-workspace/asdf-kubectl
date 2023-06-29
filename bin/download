@@ -4,7 +4,9 @@
 ## to a specified location.
 ## https://asdf-vm.com/plugins/create.html#bin-download
 
-## Your script specific code
+## -----------------------
+## Customization functions
+
 # kc_asdf_main() {
 #   return 0
 # }
@@ -21,7 +23,7 @@ _kc_asdf_custom_checksum() {
   echo "$(cat "$checksum_tmp")  $filename" >"$checksum_path"
 }
 
-## -----------------------------------------------------------------------
+## -----------------------
 
 set -euo pipefail
 

@@ -62,4 +62,4 @@ jobs:
       - name: asdf_plugin_test
         uses: asdf-vm/actions/plugin-test@v2
         with:
-          command: kubectl
+          command: kubectl version --client

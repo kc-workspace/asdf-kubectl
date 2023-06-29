@@ -1,12 +1,15 @@
 ---
 ## Changes here will be overwritten by Copier; NEVER EDIT MANUALLY
-_commit: v1.3.3-25-g4521878
-_src_path: .
-app_description: a commandline interface for kubernetes cluster
+_commit: v1.3.3-39-g00b6b31
+_src_path: /Users/kamontat/Desktop/Personal/asdf-plugin-template
+app_desc: automating deployment, scaling, and management of containerized applications.
 app_name: kubectl
 app_repo: https://github.com/kubernetes/kubernetes
-app_version_prefix: v
 app_website: https://kubernetes.io
+archive_enabled: false
+checksum_conf_algorithm: 256
+checksum_enabled: true
+checksum_url: https://dl.k8s.io/release/v{version}/bin/{os}/{arch}/kubectl.sha256
 custom_arch_enabled: true
 custom_arch_yaml:
     aarch64*: arm64
@@ -14,15 +17,22 @@ custom_arch_yaml:
     armv6*: arm
     armv7*: arm
     x86_64: amd64
+custom_bin_paths: bin
 custom_non_stable_version: (-src|-dev|-latest|-stm|[-\.]rc|-alpha|-beta|[-\.]pre|-next|snapshot|master)
 custom_os_enabled: false
-download_checksum_cmd: '256'
-download_checksum_enabled: true
-download_checksum_link: https://dl.k8s.io/v{version}/bin/{os}/{arch}/kubectl.sha256
-download_link: https://dl.k8s.io/release/v{version}/bin/{os}/{arch}/kubectl
-download_type: single-file
+custom_require_commands: ''
+download_url: https://dl.k8s.io/release/v{version}/bin/{os}/{arch}/kubectl
+gpg_enabled: false
+install_map_enabled: true
+install_map_method: move
+install_map_yaml:
+    kubectl: bin/kubectl
+package_enabled: false
 plugin_author: Kamontat Chantrachirathumrong
 plugin_name: asdf-kubectl
 plugin_org: kc-workspace
-plugin_repo: https://github.com/kc-workspace/asdf-kubectl
-test_cmd_args: ''
+plugin_repo: https://github.com/kc-workspace/asdf-kubectl.git
+source_enabled: false
+test_cmd_args: version --client
+version_file_enabled: false
+version_prefix: v
