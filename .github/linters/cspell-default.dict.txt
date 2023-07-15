@@ -1,5 +1,5 @@
-asdf
 kubectl
+asdf
 tmpl
 tmpdir
 tmpfile
@@ -25,3 +25,5 @@ chantrachirathumrong
 kc
 kcws
 mergify
+envops
+venv
