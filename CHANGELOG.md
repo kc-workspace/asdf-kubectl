@@ -38,7 +38,7 @@
 ### Miscellaneous
 
 * **deps:** bump actions/checkout from 3 to 4 ([#6](https://github.com/kc-workspace/asdf-kubectl/issues/6)) ([6ff5702](https://github.com/kc-workspace/asdf-kubectl/commit/6ff570286fb91426dda03db0040cfecb10db3c45))
-* improve log message for readiability ([a500291](https://github.com/kc-workspace/asdf-kubectl/commit/a500291e555539e1a5e47788de913450d99a3f4d))
+* improve log message for readability ([a500291](https://github.com/kc-workspace/asdf-kubectl/commit/a500291e555539e1a5e47788de913450d99a3f4d))
 * remove unused file ([12f26d7](https://github.com/kc-workspace/asdf-kubectl/commit/12f26d7ccba74e570ef63a0371fc69e64c4c5ec1))
 * update terminology ([a364fc4](https://github.com/kc-workspace/asdf-kubectl/commit/a364fc4cc5734c56f7cb380b1132a55a27296a9e))
 * use asdf instead of ASDF ([222aa76](https://github.com/kc-workspace/asdf-kubectl/commit/222aa76b38b8769312f3bfa6f10d00044404f15a))
@@ -83,7 +83,7 @@
 * ready to release ([a22d16a](https://github.com/kc-workspace/asdf-kubectl/commit/a22d16a05d2c9efe474fbc35cecaa88981b00a9b))
 
 
-### Bug Fixes
+### Bugfixes
 
 * address all issues with template ([8287104](https://github.com/kc-workspace/asdf-kubectl/commit/8287104bf162cb127392c75236bb051868c5f473))
 * workflow fail ([0ba8ec9](https://github.com/kc-workspace/asdf-kubectl/commit/0ba8ec9ab09984a523171a6595426a6f2c0744e0))
