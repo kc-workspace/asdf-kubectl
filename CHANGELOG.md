@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.3.1](https://github.com/kc-workspace/asdf-kubectl/compare/v1.3.0...v1.3.1) (2023-12-03)
+
+
+### Improvements
+
+* update plugin from template [autocommit] ([6c0ca44](https://github.com/kc-workspace/asdf-kubectl/commit/6c0ca44cde17922b3e15960c6a78e2a7e9f92aa0))
+
+
+### Miscellaneous
+
+* **docs:** update typo on changelog ([ff6309c](https://github.com/kc-workspace/asdf-kubectl/commit/ff6309c5395637275b7f3573699847c46170565e))
+
 ## [1.3.0](https://github.com/kc-workspace/asdf-kubectl/compare/v1.2.0...v1.3.0) (2023-11-06)
 
 
