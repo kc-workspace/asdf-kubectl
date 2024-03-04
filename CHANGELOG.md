@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.3.1](https://github.com/kc-workspace/asdf-kubectl/compare/v1.3.0...v1.3.1) (2024-03-04)
+
+
+### Performance Improvements
+
+* update plugin from template [autocommit] ([6374177](https://github.com/kc-workspace/asdf-kubectl/commit/6374177a8d88c3ef36cc7a2cd553cc4d6bbbf7c9))
+* update plugin from template [autocommit] ([6c0ca44](https://github.com/kc-workspace/asdf-kubectl/commit/6c0ca44cde17922b3e15960c6a78e2a7e9f92aa0))
+
 ## [1.3.0](https://github.com/kc-workspace/asdf-kubectl/compare/v1.2.0...v1.3.0) (2023-11-06)
 
 
